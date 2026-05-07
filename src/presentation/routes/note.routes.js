@@ -39,6 +39,10 @@ const router = Router();
  *               content:
  *                 type: string
  *                 example: "Finalizar el módulo de backend hoy."
+ *               categoryId:
+ *                 type: integer
+ *                 example: 1
+ *                 description: "ID opcional de la categoría a la que pertenece la nota"
  *               image:
  *                 type: string
  *                 format: binary
@@ -60,6 +64,9 @@ const router = Router();
  *                   type: string
  *                 userId:
  *                   type: string
+ *                 categoryId:
+ *                   type: integer
+ *                   description: "ID de la categoría a la que pertenece la nota"
  *       400:
  *         description: Título o contenido faltante
  */
@@ -89,6 +96,9 @@ router.post("/", authMiddleware, upload.single('image'), noteController.createNo
  *                     type: string
  *                   content:
  *                     type: string
+ *                   categoryId:
+ *                     type: integer
+ *                     description: "ID de la categoría a la que pertenece la nota"
  *       401:
  *         description: No autorizado (Token faltante o inválido)
  */
@@ -119,6 +129,9 @@ router.get("/", authMiddleware, noteController.getNotesByUserId);
  *                 type: string
  *               content:
  *                 type: string
+ *               categoryId:
+ *                 type: integer
+ *                 description: "ID opcional de la categoría a la que pertenece la nota"
  *               image:
  *                 type: string
  *                 format: binary
