@@ -217,4 +217,45 @@ router.delete("/:id", authMiddleware, roleMiddleware(["admin"]), noteController.
  */
 router.post("/:id/share", authMiddleware, noteController.shareNote);
 
+/**
+ * @swagger
+ * /notes/{id}/public:
+ *   get:
+ *     summary: Obtener una nota pública (sin autenticación requerida)
+ *     tags: [Notes]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID único de la nota
+ *     responses:
+ *       200:
+ *         description: Nota obtenida exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                 title:
+ *                   type: string
+ *                 content:
+ *                   type: string
+ *                 imageUrl:
+ *                   type: string
+ *                 userId:
+ *                   type: string
+ *                 categoryId:
+ *                   type: integer
+ *                   description: "ID de la categoría a la que pertenece la nota"
+ *       403:
+ *         description: Acceso denegado - La nota es privada
+ *       404:
+ *         description: Nota no encontrada
+ */
+router.get("/:id/public", noteController.getPublicNote);
+
 export default router;

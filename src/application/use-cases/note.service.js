@@ -18,6 +18,10 @@ export default class NoteService {
         return await this.noteRepository.findByUserId(userId);
     }
 
+    async getNoteById(id) {
+        return await this.noteRepository.findById(id);
+    }
+
     async updateNote(id, data) {
         const note = await this.noteRepository.update(id, data);
         if (!note) throw new Error("Note not found");

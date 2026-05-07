@@ -62,4 +62,20 @@ export default class NoteController {
             res.status(400).json({ error: error.message });
         }
     }
+
+    getPublicNote = async (req, res) => {
+        const { id } = req.params;
+        try {
+            const note = await this.noteService.getNoteById(id);
+            if (!note) {
+                return res.status(404).json({ error: "Note not found" });
+            }
+            if (note.isPrivate) {
+                return res.status(403).json({ error: "This note is private and cannot be accessed publicly" });
+            }
+            res.status(200).json(note);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
 }
